@@ -1,0 +1,45 @@
+name: Pull Request checks
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash -el {0}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Conda
+        uses: conda-incubator/setup-miniconda@v2.2.0
+        with:
+          activate-environment: snowpark
+          environment-file: environment.yml
+
+      - name: Run tests
+        run: python -m pytest --snowflake-session local
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Conda
+        uses: conda-incubator/setup-miniconda@v2.2.0
+        with:
+          activate-environment: snowpark
+          environment-file: environment.yml
+      
+      - name: Install dependencies
+        run: pip install pylint
+      
+      - name: Analysing the code with pylint
+        run: pylint $(git ls-files '*.py')
