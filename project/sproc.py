@@ -3,7 +3,7 @@ from snowflake.snowpark.session import Session
 from project.transformers import *
 from project.local import get_env_var_config
 
-def create_fact_tables(sess: Session) -> int:
+def create_fact_tables(sess: Session, source_table) -> int:
     """
     This job applies the transformations in transformers.py to the built-in Citibike dataset
     and saves two tables, month_summary and bike_summary, under CITIBIKE.PUBLIC. Returns the 
@@ -12,9 +12,8 @@ def create_fact_tables(sess: Session) -> int:
 
     SOURCE_DB = 'CITIBIKE'
     SOURCE_SCHEMA = 'PUBLIC'
-    SOURCE_TABLE = 'TRIPS'
 
-    df = sess.table([SOURCE_DB, SOURCE_SCHEMA, SOURCE_TABLE])
+    df = sess.table([SOURCE_DB, SOURCE_SCHEMA, source_table])
     
     df = add_rider_age(df)
     month_facts = calc_month_facts(df)

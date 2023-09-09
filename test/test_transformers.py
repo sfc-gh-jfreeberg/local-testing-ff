@@ -1,5 +1,5 @@
 from snowflake.snowpark.session import Session
-from snowflake.snowpark.types import StructType, StructField, IntegerType
+from snowflake.snowpark.types import StructType, StructField, IntegerType, FloatType
 from project.transformers import add_rider_age, calc_bike_facts, calc_month_facts
 from snowflake.snowpark.mock.functions import patch
 from snowflake.snowpark.functions import to_timestamp
@@ -43,14 +43,14 @@ def test_calc_bike_facts(session: Session):
     )
 
     expected = session.create_dataframe([
-            [1, 2, 7.5, 25],
-            [2, 2, 15, 55],
+            [1, 2, 7.5, 25.0],
+            [2, 2, 15.0, 55.0],
         ], 
         schema=StructType([
             StructField("BIKEID", IntegerType()), 
             StructField("COUNT", IntegerType()), 
-            StructField("AVG_TRIPDURATION", IntegerType()), 
-            StructField("AVG_RIDER_AGE", IntegerType())
+            StructField("AVG_TRIPDURATION", FloatType()), 
+            StructField("AVG_RIDER_AGE", FloatType())
         ])
     )
 

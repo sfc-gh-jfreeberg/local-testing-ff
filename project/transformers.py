@@ -1,5 +1,5 @@
 from snowflake.snowpark.dataframe import DataFrame, col
-from snowflake.snowpark.functions import monthname, avg, cast
+from snowflake.snowpark.functions import monthname, avg, cast, count
 import datetime
 
 
@@ -14,7 +14,10 @@ def calc_month_facts(df: DataFrame) -> DataFrame:
     """
     return df.with_column('month', monthname('STARTTIME'))\
         .group_by('month')\
-        .agg((col('*'), 'count'), avg('TRIPDURATION'), avg('RIDER_AGE'))
+        .agg(
+            count('*').alias('COUNT'), 
+            avg('TRIPDURATION').alias('AVG_TRIPDURATION'), 
+            avg('RIDER_AGE').alias('AVG_RIDER_AGE'))
 
 
 def calc_bike_facts(df: DataFrame) -> DataFrame:
@@ -22,4 +25,7 @@ def calc_bike_facts(df: DataFrame) -> DataFrame:
     Group by bike ID and return summary statistics
     """
     return df.group_by('BIKEID')\
-        .agg((col('*'), 'count'), avg('TRIPDURATION'), avg('RIDER_AGE'))
+        .agg(
+            count('*').alias('COUNT'), 
+            avg('TRIPDURATION').alias('AVG_TRIPDURATION'), 
+            avg('RIDER_AGE').alias('AVG_RIDER_AGE'))
