@@ -1,5 +1,4 @@
 from snowflake.snowpark.session import Session
-from snowflake.snowpark.dataframe import DataFrame
 from snowflake.snowpark.types import StructType, StructField, IntegerType, StringType, DecimalType, FloatType
 
 from project.sproc import create_fact_tables
