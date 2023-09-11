@@ -13,7 +13,7 @@ def create_fact_tables(sess: Session, source_table) -> int:
     SOURCE_DB = 'CITIBIKE'
     SOURCE_SCHEMA = 'PUBLIC'
 
-    df = sess.table([SOURCE_DB, SOURCE_SCHEMA, source_table])
+    df: DataFrame = sess.table([SOURCE_DB, SOURCE_SCHEMA, source_table])
     
     df2 = add_rider_age(df)
     month_facts = calc_month_facts(df2)

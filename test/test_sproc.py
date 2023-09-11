@@ -48,7 +48,6 @@ def test_sproc(pytestconfig, session: Session):
             StructField("AVG_TRIPDURATION", FloatType()), 
             StructField("AVG_RIDER_AGE", FloatType())
         ])
-        #["BIKEID", "COUNT", "AVG_TRIPDURATION", "AVG_RIDER_AGE"]
     ).collect()
 
     month_facts_expected = session.create_dataframe(

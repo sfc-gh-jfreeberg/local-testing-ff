@@ -9,7 +9,7 @@ def pytest_addoption(parser):
 
 @pytest.fixture(scope='module')
 def session(request) -> Session:
-    if request.config.getoption('--snowflake-session') == 'local':  # parse the option from conftest.py
+    if request.config.getoption('--snowflake-session') == 'local':
         return Session(MockServerConnection())
     else:
         return Session.builder.configs(get_env_var_config()).create()
