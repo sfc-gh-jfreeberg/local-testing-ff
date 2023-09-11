@@ -15,9 +15,9 @@ def create_fact_tables(sess: Session, source_table) -> int:
 
     df = sess.table([SOURCE_DB, SOURCE_SCHEMA, source_table])
     
-    df = add_rider_age(df)
-    month_facts = calc_month_facts(df)
-    bike_facts = calc_bike_facts(df)
+    df2 = add_rider_age(df)
+    month_facts = calc_month_facts(df2)
+    bike_facts = calc_bike_facts(df2)
 
     month_facts.write.save_as_table([SOURCE_DB, SOURCE_SCHEMA, 'month_facts'], table_type='', mode='overwrite')
     bike_facts.write.save_as_table([SOURCE_DB, SOURCE_SCHEMA, 'bike_facts'], table_type='', mode='overwrite')
