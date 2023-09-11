@@ -6,8 +6,8 @@ from project.local import get_env_var_config
 def create_fact_tables(sess: Session, source_table) -> int:
     """
     This job applies the transformations in transformers.py to the built-in Citibike dataset
-    and saves two tables, month_summary and bike_summary, under CITIBIKE.PUBLIC. Returns the 
-    total number of rows created in both tables
+    and saves two tables, month_summary and bike_summary, under CITIBIKE.PUBLIC. 
+    Returns the total number of rows created in both tables
     """
 
     SOURCE_DB = 'CITIBIKE'

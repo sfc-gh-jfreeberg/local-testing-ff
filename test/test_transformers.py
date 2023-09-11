@@ -81,5 +81,3 @@ def test_calc_month_facts(session: Session):
     actual = calc_month_facts(input)
 
     assert expected.collect() == actual.collect()
-
-    
